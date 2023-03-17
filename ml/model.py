@@ -29,7 +29,7 @@ import pickle
 
 
 
-train_df = pd.read_csv('./survey.csv')
+train_df = pd.read_csv('./ml/survey.csv')
 # print(train_df.head())
 
 #Pandas: whats the data row count?
@@ -127,6 +127,7 @@ train_df['Age'] = s
 
 #Ranges of Age
 train_df['age_range'] = pd.cut(train_df['Age'], [0,20,30,65,100], labels=["0-20", "21-30", "31-65", "66-100"], include_lowest=True)
+# print(train_df['age_range'])
 
 #There are only 0.014% of self employed so let's change NaN to NOT self_employed
 #Replace "NaN" string from defaultString
@@ -157,6 +158,7 @@ for feature in train_df:
 #Get rid of 'Country'
 train_df = train_df.drop(['Country'], axis= 1)
 train_df.head()
+# print(train_df.head())
 
 #missing data
 total = train_df.isnull().sum().sort_values(ascending=False)
@@ -166,8 +168,24 @@ missing_data.head(20)
 # print(missing_data)
 
 # Scaling Age
+age_data = train_df['Age']
+# print(age_data)
 scaler = MinMaxScaler()
 train_df['Age'] = scaler.fit_transform(train_df[['Age']])
+scaled_age_data = train_df['Age']
+
+data_min = scaler.data_min_
+data_max = scaler.data_max_
+
+def scale_age(age):
+    return (age - data_min)/(data_max - data_min)
+
+# print(scaled_age_data)
+# print(scaler.data_min_)
+
+
+# age_dic = dict(zip(age_data, scaled_age_data))
+# print(age_dic[50])
 train_df.head()
 
 # define X and y
@@ -215,6 +233,6 @@ results = pd.DataFrame({'Index': X_test.index, 'Treatment': dfTestPredictions})
 results.to_csv('results.csv', index=False)
 # print(results.head(10))
 
-# print(results)
+# print(X_test, dfTestPredictions)
 
 pickle.dump(clf, open('finalModel.sav', 'wb'))
