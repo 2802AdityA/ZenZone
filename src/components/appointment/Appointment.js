@@ -1,0 +1,40 @@
+import React from 'react'
+import Img1 from '../../assets/acard-1.jpg'
+import Img2 from '../../assets/acard-2.jpeg'
+import Img3 from '../../assets/acard3.jpg'
+import useStyles from './AppointmentStyle'
+
+const Appointment = () => {
+
+    const classes = useStyles();
+
+    const cardData = [
+        {
+            image: Img1,
+            name: 'Lorem Ipsum'
+        },
+        {
+            image: Img2,
+            name: 'Lorem Ipsum'
+        },
+        {
+            image: Img3,
+            name: 'Lorem Ipsum'
+        }
+    ];
+
+    return (
+        <div>
+            <div className={classes.cardSection}>
+                {cardData.map((card) => (
+                    <div key={card.name}>
+                        <img src={card.image} alt={card.name}/>
+                        <h3>{card.name}</h3>
+                    </div>
+                ))}
+            </div>
+        </div>
+    )
+}
+
+export default Appointment;
