@@ -4,48 +4,48 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
 from scipy.stats import randint
+
+
 # prep
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 from sklearn.datasets import make_classification
 from sklearn.preprocessing import binarize, LabelEncoder, MinMaxScaler
 # models
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
+
 # Validation libraries
 from sklearn import metrics
-from sklearn.metrics import accuracy_score, mean_squared_error, precision_recall_curve
-from sklearn.model_selection import cross_val_score
-# #Neural Network
-# from sklearn.neural_network import MLPClassifier
-# from sklearn.model_selection import RandomizedSearchCV
+from sklearn.metrics import accuracy_score
 
-# #Bagging
-from sklearn.ensemble import BaggingClassifier, AdaBoostClassifier
+
+#model
+from sklearn.tree import DecisionTreeClassifier
+
+# #Boosting
+from sklearn.ensemble import AdaBoostClassifier
 # from sklearn.neighbors import KNeighborsClassifier
 
-# #Naive bayes
-# from sklearn.naive_bayes import GaussianNB 
+import pickle
+
 
 
 train_df = pd.read_csv('./survey.csv')
-print(train_df.head())
+# print(train_df.head())
 
 #Pandas: whats the data row count?
-print(train_df.shape)
+# print(train_df.shape)
     
 #Pandas: whats the distribution of the data?
-print(train_df.describe())
+# print(train_df.describe())
     
 #Pandas: What types of data do i have?
-print(train_df.info())
+# print(train_df.info())
 
 total = train_df.isnull().sum().sort_values(ascending=False)
 percent = (train_df.isnull().sum()/train_df.isnull().count()).sort_values(ascending=False)
 missing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])
 missing_data.head(20)
-print(missing_data)
+# print(missing_data)
 
 #dealing with missing data
 #Let’s get rid of the variables "Timestamp",“comments”, “state” just to make our lives easier.
@@ -111,7 +111,7 @@ for (row, col) in train_df.iterrows():
 stk_list = ['A little about you', 'p']
 train_df = train_df[~train_df['Gender'].isin(stk_list)]
 
-print(train_df['Gender'].unique())
+# print(train_df['Gender'].unique())
 
 
 #complete missing age with mean
@@ -131,13 +131,13 @@ train_df['age_range'] = pd.cut(train_df['Age'], [0,20,30,65,100], labels=["0-20"
 #There are only 0.014% of self employed so let's change NaN to NOT self_employed
 #Replace "NaN" string from defaultString
 train_df['self_employed'] = train_df['self_employed'].replace([defaultString], 'No')
-print(train_df['self_employed'].unique())
+# print(train_df['self_employed'].unique())
 
 #There are only 0.20% of self work_interfere so let's change NaN to "Don't know
 #Replace "NaN" string from defaultString
 
 train_df['work_interfere'] = train_df['work_interfere'].replace([defaultString], 'Don\'t know' )
-print(train_df['work_interfere'].unique())
+# print(train_df['work_interfere'].unique())
 
 #Encoding data
 labelDict = {}
@@ -151,8 +151,8 @@ for feature in train_df:
     labelValue = [*le_name_mapping]
     labelDict[labelKey] =labelValue
     
-for key, value in labelDict.items():     
-    print(key, value)
+# for key, value in labelDict.items():     
+#     print(key, value)
 
 #Get rid of 'Country'
 train_df = train_df.drop(['Country'], axis= 1)
@@ -163,7 +163,7 @@ total = train_df.isnull().sum().sort_values(ascending=False)
 percent = (train_df.isnull().sum()/train_df.isnull().count()).sort_values(ascending=False)
 missing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])
 missing_data.head(20)
-print(missing_data)
+# print(missing_data)
 
 # Scaling Age
 scaler = MinMaxScaler()
@@ -213,6 +213,8 @@ results = pd.DataFrame({'Index': X_test.index, 'Treatment': dfTestPredictions})
 # Save to file
 # This file will be visible after publishing in the output section
 results.to_csv('results.csv', index=False)
-print(results.head(10))
+# print(results.head(10))
 
-print(X.head(10))
+# print(results)
+
+pickle.dump(clf, open('finalModel.sav', 'wb'))
