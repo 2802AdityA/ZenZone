@@ -14,9 +14,6 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "lighter",
         fontFamily: 'Roboto,sans-serif',
     },
-    accordian: {
-        backgroundColor: "transparent",
-    },
     accordianContent: {
         fontWeight: "lighter",
         fontFamily: 'Roboto,sans-serif',
