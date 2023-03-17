@@ -168,7 +168,6 @@ missing_data.head(20)
 # print(missing_data)
 
 # Scaling Age
-<<<<<<< HEAD
 # print(train_df.head())
 scaler = MinMaxScaler()
 train_df['Age'] = scaler.fit_transform(train_df[['Age']])
@@ -180,26 +179,6 @@ def scale_age(age):
     return (age - data_min)/(data_max - data_min)
 
 
-=======
-age_data = train_df['Age']
-# print(age_data)
-scaler = MinMaxScaler()
-train_df['Age'] = scaler.fit_transform(train_df[['Age']])
-scaled_age_data = train_df['Age']
-
-data_min = scaler.data_min_
-data_max = scaler.data_max_
-
-def scale_age(age):
-    return (age - data_min)/(data_max - data_min)
-
-# print(scaled_age_data)
-# print(scaler.data_min_)
-
-
-# age_dic = dict(zip(age_data, scaled_age_data))
-# print(age_dic[50])
->>>>>>> 5a3dae30d3fc43c9db5b9b476916e0163e243bf4
 train_df.head()
 
 # define X and y
