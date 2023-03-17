@@ -6,10 +6,9 @@ const useStyles = makeStyles((theme) => ({
         padding: '50px 20px 200px 20px',
     },
     content:{
-        marginLeft: '20px',
-        padding:"0px",
-        fontWeight: '700',
+        // fontWeight: '400',
         fontSize: '25px',
+        fontFamily: 'Roboto, sans-serif',
     },
     card: {
         height: "100%",
@@ -18,13 +17,15 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "left",
         alignItems: "left",
         backgroundPosition: "center",
-        backgroundSize: "cover",
-        padding: "100px",
+        backgroundSize: "100% 100%",
+        padding: "80px",
+        cursor: "pointer",
+        opacity: "0.8",
     },
 
     heading: {
         textAlign: 'center',
-        fontFamily: 'Overpass, sans-serif',
+        fontFamily: 'Roboto, sans-serif',
         paddingBottom: '20px',
         paddingTop: '50px',
     },
