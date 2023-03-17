@@ -29,7 +29,7 @@ import pickle
 
 
 
-train_df = pd.read_csv('./survey.csv')
+train_df = pd.read_csv('./ml/survey.csv')
 # print(train_df.head())
 
 #Pandas: whats the data row count?
@@ -166,8 +166,17 @@ missing_data.head(20)
 # print(missing_data)
 
 # Scaling Age
+# print(train_df.head())
 scaler = MinMaxScaler()
 train_df['Age'] = scaler.fit_transform(train_df[['Age']])
+# print(train_df.head())
+
+data_min = scaler.data_min_
+data_max = scaler.data_max_
+def scale_age(age):
+    return (age - data_min)/(data_max - data_min)
+
+
 train_df.head()
 
 # define X and y
@@ -217,4 +226,6 @@ results.to_csv('results.csv', index=False)
 
 # print(results)
 
-pickle.dump(clf, open('finalModel.sav', 'wb'))
+
+import pickle
+pickle.dump(clf,open("./ml/model.pkl","wb"))
