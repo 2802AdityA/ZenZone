@@ -8,6 +8,7 @@ import { Button } from '@mui/material';
 import axios from 'axios';
 import Output from '../../pages/Output.js';
 import { Router, Route, Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 
 const Form = () => {
@@ -45,7 +46,10 @@ const Form = () => {
   const handleWorkInterfere = (event) => {
     setWorkInterfere(event.target.value);
   }
+  
+  const navigate = useNavigate();
 
+  
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -70,6 +74,7 @@ const Form = () => {
     fD.append('leave', leave);
     fD.append('workInterfere', workInterfere);
 
+    
 
     // Send a POST request to the server
     axios.post('/predict', fD)
@@ -77,6 +82,8 @@ const Form = () => {
         console.log(response.data.output)
         // Handle the response from the server
         setOutput(response.data.output);
+        navigate('/output');
+
       })
       .catch(error => {
         // Handle errors that occur during the request

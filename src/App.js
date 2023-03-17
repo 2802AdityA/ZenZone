@@ -3,6 +3,7 @@ import Homepage from './pages/Homepage';
 import Video from './components/Video/Video'
 import Form from './components/form/Form'
 import Output from './pages/Output';
+import Appointment from './components/appointment/Appointment';
 
 
 function App() {
@@ -10,7 +11,8 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element={<Homepage />} />
-        <Route path="/find-counsellors" element={<Video />} />
+        <Route path="/find-counsellors" element={<Appointment />} />
+        <Route path="/video" element={<Video />} />
         <Route path="/form" element={<Form />} />
         <Route path="/output" element={<Output />} />
       </Routes>
